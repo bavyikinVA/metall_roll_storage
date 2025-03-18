@@ -1,0 +1,66 @@
+# Игнорируем виртуальное окружение
+.venv/
+venv/
+env/
+
+# Игнорируем файлы зависимостей
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Игнорируем файлы IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Игнорируем локальные настройки и конфигурации
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Игнорируем файлы базы данных (если используется SQLite)
+*.db
+*.sqlite
+*.sqlite3
+
+# Игнорируем логи
+*.log
+logs/
+
+# Игнорируем собранные файлы и артефакты
+dist/
+build/
+*.egg-info/
+*.egg
+
+# Игнорируем кэш pip
+.pip-cache/
+pip-wheel-metadata/
+
+# Игнорируем тестовые данные и кэш тестов
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Игнорируем файлы, специфичные для macOS
+.DS_Store
+
+# Игнорируем файлы, специфичные для Windows
+Thumbs.db
+Desktop.ini
+
+# Игнорируем файлы, специфичные для Docker
+docker-compose.override.yml
+docker-compose.*.yml
+
+# Игнорируем миграции (если используется Alembic)
+alembic/versions/
+alembic.ini
+
+# Игнорируем статические файлы и кэш (если используются)
+static/
+media/
+.cache/
