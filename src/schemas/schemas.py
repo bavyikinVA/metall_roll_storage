@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional
 from datetime import datetime
 
@@ -9,10 +9,8 @@ class MetalRollBase(BaseModel):
 class MetalRoll(MetalRollBase):
     id: int = Field(ge=0)
     added_date: datetime
-    removed_date: datetime | None = None
-
-    class Config:
-        from_attributes = True
+    removed_date: Optional[datetime] = None
+    model_config = ConfigDict(from_attributes=True)
 
 class StatisticsResponse(BaseModel):
     added_count: int
@@ -26,3 +24,7 @@ class StatisticsResponse(BaseModel):
     total_weight: Optional[float]
     max_time_diff: Optional[str]
     min_time_diff: Optional[str]
+    min_roll_count_day: Optional[str]
+    max_roll_count_day: Optional[str]
+    min_weight_day: Optional[str]
+    max_weight_day: Optional[str]

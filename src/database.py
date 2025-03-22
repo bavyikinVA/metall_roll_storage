@@ -1,12 +1,21 @@
+from fastapi import HTTPException
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
+from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.exc import SQLAlchemyError
+from src.config import settings
 
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from config import settings
+async_engine = create_async_engine(settings.DB_URL(), echo=True)
+AsyncSessionLocal = async_sessionmaker(expire_on_commit=False,
+                                       bind=async_engine,
+                                       class_=AsyncSession)
 
-SQLALCHEMY_DATABASE_URL = settings.database_url
+class Base(DeclarativeBase):
+    pass
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-Base = declarative_base()
+async def get_session():
+    try:
+        async with AsyncSessionLocal() as session:
+            yield session
+    except SQLAlchemyError as e:
+        raise HTTPException(status_code=500, detail=f"Ошибка подключения к базе данных: {str(e)}")
